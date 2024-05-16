@@ -5,8 +5,14 @@
 
 ## 安装
 - 直接下载:
+- **gitee下载**:
+```
+git clone git@gitee.com:chinahehex/hehep-hclient.git
 ```
 
+- **github下载**:
+```
+git clone git@github.com:chinahehex/hehep-hclient.git
 ```
 - 命令安装：
 ```
