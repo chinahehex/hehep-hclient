@@ -1,6 +1,6 @@
 ﻿{
 	"name": "hehep/hclient",
-	"description": "hehep-hvalidation 是一个PHP 验证器工具组件",
+	"description": "hehep-hclient 是一个PHP客户端工具组件",
 	"license": "Apache-2.0",
 	"authors": [
 		{
@@ -11,9 +11,14 @@
 	"require": {
 		"php": ">=7.1"
 	},
+	"autoload": {
+		"psr-4": {
+			"hclient\\": "src/"
+		}
+	},
 	"autoload-dev": {
 		"psr-4": {
-			"hclient\\": "./src"
+			"hclient\\tests\\": "tests/"
 		}
 	}
 }
