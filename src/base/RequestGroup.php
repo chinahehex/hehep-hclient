@@ -205,7 +205,7 @@ class RequestGroup
             $methodName = substr($method,0,strlen($method) - 6);
             $request = $this->createRequestShortcut($methodName,...$parameters)->asResult();
         } else {
-            $request = $this->createRequestShortcut($methodName,...$parameters);
+            $request = $this->createRequestShortcut($method,...$parameters);
         }
 
         return $request;

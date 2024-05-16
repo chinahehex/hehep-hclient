@@ -103,7 +103,7 @@ class Request extends Message
      *</pre>
      * @var int|string
      */
-    protected $index = 0;
+    protected $index = null;
 
     protected $_isResult = false;
 

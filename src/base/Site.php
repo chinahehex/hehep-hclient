@@ -53,6 +53,8 @@ class Site
                 $this->$name = $value;
             }
         }
+
+
     }
 
     public function setFormat($format)
@@ -115,11 +117,10 @@ class Site
      * @param array $options request 配置信息
      * @return Request
      */
-    public function service(string $url, array $data = [],array $options = []):Request
+    public function service(string $url = '', array $data = null,array $options = []):Request
     {
         $siteConf = array_merge($this->options,$options);
         $siteRequest = $this->client->createRequest($siteConf);
-
         $siteRequest->setUrl($url);
 
         if (is_array($data)) {
@@ -142,7 +143,7 @@ class Site
      * @param array $options request 配置信息
      * @return mixed
      */
-    public function serviceResult(string $url, array $data = [],array $options = [])
+    public function serviceResult(string $url = '', array $data = null,array $options = [])
     {
         $siteRequest = $this->service($url,$data,$options);
 
@@ -187,7 +188,7 @@ class Site
 
             return $request->send()->getData();
         } else {
-            return $this->createRequestShortcut($methodName,...$parameters);
+            return $this->createRequestShortcut($method,...$parameters);
         }
     }
 }

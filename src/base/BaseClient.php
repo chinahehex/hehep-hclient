@@ -341,6 +341,10 @@ class BaseClient
             $custom_transport = $transport;
         }
 
+        if (is_object($custom_transport)) {
+            return $custom_transport;
+        }
+
         if (strpos($custom_transport,'\\') !== false) {
             $transportClass =  $custom_transport;
         } else {
@@ -443,6 +447,7 @@ class BaseClient
         }
 
         $options = $this->customSites[$siteName];
+
         $this->_sites[$siteName] = $this->createSite($options);
 
         return $this->_sites[$siteName];
@@ -525,6 +530,8 @@ class BaseClient
             $request = new HttpRequest($config);
         }
 
+        $request->setClient($this);
+
         return $request;
     }
 
@@ -564,7 +571,9 @@ class BaseClient
     {
         // 保留request key
         foreach ($requests as $index=>$request) {
-            $request->setIndex($index);
+            if (!$request->hasIndex()) {
+                $request->setIndex($index);
+            }
         }
 
         // 按transport 归类 request
@@ -626,7 +635,7 @@ class BaseClient
      * @param array $options Request 配置
      * @return Request Request 实例
      */
-    public function service(string $site_alias,string $url = '', array $data = [],array $options = []):Request
+    public function service(string $site_alias,string $url = '', array $data = null,array $options = []):Request
     {
         $site = $this->getSite($site_alias);
 
@@ -654,7 +663,6 @@ class BaseClient
         }
 
         $request = $this->createRequest($config)
-            ->setClient($this)
             ->setMethod($method)
             ->setUrl($url);
 
