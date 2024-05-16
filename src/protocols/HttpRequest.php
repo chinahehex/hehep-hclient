@@ -58,15 +58,13 @@ class HttpRequest extends Request
     public function encodeHeaderLines()
     {
 
-        if (!$this->hasHeaders()) {
-            return [];
-        }
-
         $headers = [];
-        foreach ($this->getHeaders() as $name => $values) {
-            $name = str_replace(' ', '-', ucwords(str_replace('-', ' ', $name)));
-            foreach ($values as $value) {
-                $headers[] = "$name: $value";
+        if ($this->hasHeaders()) {
+            foreach ($this->getHeaders() as $name => $values) {
+                $name = str_replace(' ', '-', ucwords(str_replace('-', ' ', $name)));
+                foreach ($values as $value) {
+                    $headers[] = "$name: $value";
+                }
             }
         }
 

@@ -21,7 +21,7 @@ class CurlTransport extends Transport
         $responseHeaders = [];
         $this->setHeaderOutput($curlResource, $responseHeaders);
         $responseContent = curl_exec($curlResource);
-    
+
         // check cURL error
         $errorNumber = curl_errno($curlResource);
         $errorMessage = curl_error($curlResource);
@@ -127,6 +127,7 @@ class CurlTransport extends Transport
 
         $curlOptions[CURLOPT_RETURNTRANSFER] = true;
         $curlOptions[CURLOPT_URL] = $request->getUrl();
+        
         $curlOptions[CURLOPT_HTTPHEADER] = $request->encodeHeaderLines();
 
         return $curlOptions;
