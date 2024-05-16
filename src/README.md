@@ -223,7 +223,7 @@ $data = $response->setFormat('json')->getData();
 
 ```
 
-## 传输协议
+## 设置传输协议
 ```
 目前支持三种传输协议,分别为
 curl,socket,stream
@@ -332,7 +332,7 @@ $response->getError();
 
 ```
 
-### 格式化,序列化
+## 自定义格式化
 ```
 目前支持三种json,xml,none(无须序列化)
 ```
