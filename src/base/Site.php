@@ -117,7 +117,7 @@ class Site
      * @param array $options request 配置信息
      * @return Request
      */
-    public function service(string $url = '', array $data = null,array $options = []):Request
+    public function uri(string $url = '', array $data = null,array $options = []):Request
     {
         $siteConf = array_merge($this->options,$options);
         $siteRequest = $this->client->createRequest($siteConf);
@@ -143,9 +143,9 @@ class Site
      * @param array $options request 配置信息
      * @return mixed
      */
-    public function serviceResult(string $url = '', array $data = null,array $options = [])
+    public function uriResult(string $url = '', array $data = null,array $options = [])
     {
-        $siteRequest = $this->service($url,$data,$options);
+        $siteRequest = $this->uri($url,$data,$options);
 
         return $siteRequest->send()->getData();
     }

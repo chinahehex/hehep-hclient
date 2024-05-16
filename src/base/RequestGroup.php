@@ -70,9 +70,9 @@ class RequestGroup
      * @throws Exception $siteName 配置不存在
      * @return Request
      */
-    public function service(string $siteName,string $url = '', array $data = [],array $options = []):Request
+    public function uri(string $siteName,string $url = '', array $data = [],array $options = []):Request
     {
-        $request = $this->client->service($siteName,$url,$data,$options);
+        $request = $this->client->uri($siteName,$url,$data,$options);
 
         $this->addRequest($request);
 
@@ -91,9 +91,9 @@ class RequestGroup
      * @param array $options Request 配置
      * @return Request
      */
-    public function serviceResult(string $siteName,string $url = '', array $data = [],array $options = []):Request
+    public function uriResult(string $siteName,string $url = '', array $data = [],array $options = []):Request
     {
-        $request = $this->client->service($siteName,$url,$data,$options);
+        $request = $this->client->uri($siteName,$url,$data,$options);
         $request->asResult();
         $this->addRequest($request);
 

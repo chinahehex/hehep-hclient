@@ -117,7 +117,7 @@ use Exception;
         ]
     ];
  * $client = new Client($config);
- * $respone = $client->one('123','shop/detail',['shop_id'=>20])->send();
+ * $respone = $client->uri('123','shop/detail',['shop_id'=>20])->send();
  * $data = $respone->getData();
  *
  * 实例9: socket 传输，可支持http,扩展Request 类，支持多种jsonRPC
@@ -136,7 +136,7 @@ use Exception;
         ]
     ];
  * $client = new Client($config);
- * $respone = $client->one('123','shop/detail',['shop_id'=>20])->send();
+ * $respone = $client->uri('123','shop/detail',['shop_id'=>20])->send();
  * $data = $respone->getData();
  *
  * 实例10: 日志
@@ -164,7 +164,7 @@ use Exception;
  * @method array|string headResult($url, $data = null,$options = [])
  *
  *
- * @method array|string serviceResult($systemName,$url = '', $data = [],$requestConfig = [])
+ * @method array|string uriResult($systemName,$url = '', $data = [],$requestConfig = [])
  */
 class BaseClient
 {
@@ -635,11 +635,11 @@ class BaseClient
      * @param array $options Request 配置
      * @return Request Request 实例
      */
-    public function service(string $site_alias,string $url = '', array $data = null,array $options = []):Request
+    public function uri(string $site_alias,string $url = '', array $data = null,array $options = []):Request
     {
         $site = $this->getSite($site_alias);
 
-        return $site->service($url,$data,$options);
+        return $site->uri($url,$data,$options);
     }
 
     /**

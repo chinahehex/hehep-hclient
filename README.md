@@ -105,7 +105,7 @@ $hclient->addSite('sina',[
 			'method'=>'GET'
 ]);
 
-$response = $hclient->service("baidu","system/site/siteInit",['id'=>1])->send();
+$response = $hclient->uri("baidu","system/site/siteInit",['id'=>1])->send();
 // 获取返回的原始内容
 $content = $response->getContent();
 
@@ -113,7 +113,7 @@ $content = $response->getContent();
 $data = $response->setFormat("json")->getData();
 
 // 直接获取格式化后数据
-$data = $hclient->serviceResult("baidu","system/site/siteInit",['id'=>1]);
+$data = $hclient->uriResult("baidu","system/site/siteInit",['id'=>1]);
 
 ```
 
@@ -132,7 +132,7 @@ $hclient->site('baidu')->postResult('system/site/siteInit',['id'=>1]);
 use hclient\Client;
 $hclient = new Client();
 $response = $hclient->site('baidu')
-    ->service('system/site/siteInit',['id'=>1])
+    ->uri('system/site/siteInit',['id'=>1])
     ->send();
 
 ```
@@ -143,7 +143,7 @@ use hclient\Client;
 $hclient = new Client();
 $response = $hclient->site()
     ->setBaseUrl('https://sports.sina.com.cn/')
-    ->service('system/site/siteInit',['id'=>1])
+    ->uri('system/site/siteInit',['id'=>1])
     ->send();
 
 ```
@@ -157,8 +157,8 @@ $hclient = new Client();
 
 // 方式1
 $reqeusts = [
-    'reqeust1'=>$hclient->service("md","system/site/siteInit",['id'=>1]),
-    'reqeust2'=>$hclient->service("md","system/site/siteInit",['id'=>2]),
+    'reqeust1'=>$hclient->uri("md","system/site/siteInit",['id'=>1]),
+    'reqeust2'=>$hclient->uri("md","system/site/siteInit",['id'=>2]),
 ];
 
 $responses = $hclient->batchSend($reqeusts);
@@ -168,8 +168,8 @@ $content = $responses['reqeust2']->getContent();
 
 // 方式2
 $reqeusts = [
-    $hclient->service("md","system/site/siteInit",['id'=>1])->setIndex('reqeust1'),
-    $hclient->service("md","system/site/siteInit",['id'=>2])->setIndex('reqeust2'),
+    $hclient->uri("md","system/site/siteInit",['id'=>1])->setIndex('reqeust1'),
+    $hclient->uri("md","system/site/siteInit",['id'=>2])->setIndex('reqeust2'),
 ];
 
 $responses = $hclient->batchSend($reqeusts);
@@ -261,7 +261,7 @@ $hclient->post('http://www.baidu.com')->setTransport('curl')->send();
 ```php
 use hclient\Client;
 $hclient = new Client();
-$reqeust = $hclient->service("md","system/site/siteInit",['id'=>1]);
+$reqeust = $hclient->uri("md","system/site/siteInit",['id'=>1]);
 
 // 设置传输协议相关参数
 $reqeust->setTransportOptions([
@@ -277,7 +277,7 @@ $reqeust->setTransportOptions([
 ```php
 use hclient\Client;
 $hclient = new Client();
-$reqeust = $hclient->service("md","system/site/siteInit",['id'=>1]);
+$reqeust = $hclient->uri("md","system/site/siteInit",['id'=>1]);
 $reqeust->addHeaders([
     'c'=>1,
     'n'=>time(),
@@ -289,10 +289,11 @@ $reqeust->addHeaders([
 ```php
 use hclient\Client;
 $hclient = new Client();
-$reqeust = $hclient->service("md","system/site/siteInit",['id'=>1]);
+$reqeust = $hclient->uri("md","system/site/siteInit",['id'=>1]);
 $reqeust->addCookie([
-    "name"=>"ok",
-    'value'=>"12121"
+    "name"=>"ok",// cookie 名称
+    'value'=>"12121",// cookie 值
+    "expire"=>60 * 30,// cookie 有效期
 ]);
 
 $reqeust->setCookie("ok","value",60 * 30);
@@ -303,7 +304,7 @@ $reqeust->setCookie("ok","value",60 * 30);
 ```php
 use hclient\Client;
 $hclient = new Client();
-$reqeust = $hclient->service("md","system/site/siteInit",['id'=>1]);
+$reqeust = $hclient->uri("md","system/site/siteInit",['id'=>1]);
 
 // 设置http method
 $reqeust->setMethod("post");
@@ -316,7 +317,7 @@ $reqeust->setMethod("get");
 ```php
 use hclient\Client;
 $hclient = new Client();
-$reqeust = $hclient->service("md","system/site/siteInit",['id'=>1]);
+$reqeust = $hclient->uri("md","system/site/siteInit",['id'=>1]);
 $response = $reqeust->send();
 
 // 验证是否错误(验证网络,解析数据,Transport（传输层） 是否有错误)

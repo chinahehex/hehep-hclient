@@ -20,22 +20,22 @@ class ExampleTest extends TestCase
 
     public function testSite()
     {
-        $this->hclient->addSite('baidu',['baseUrl'=>"https://www.baidu.com", 'method'=>'GET']);
+        $this->hclient->addSite('baidu',['baseUrl'=>"https://www.baidu.com/", 'method'=>'GET']);
 
         $this->assertRegExp('/11000002000001号/',
-            $this->hclient->service('baidu','')->send()->getContent()
+            $this->hclient->uri('baidu')->send()->getContent()
         );
 
         $this->assertRegExp('/11000002000001号/',
-            $this->hclient->serviceResult('baidu','')
+            $this->hclient->uriResult('baidu','')
         );
 
         $this->assertRegExp('/11000002000001号/',
-            $this->hclient->site('baidu')->service()->send()->getContent()
+            $this->hclient->site('baidu')->uri()->send()->getContent()
         );
 
         $this->assertRegExp('/11000002000001号/',
-            $this->hclient->site('baidu')->serviceResult()
+            $this->hclient->site('baidu')->uriResult()
         );
 
         $this->assertRegExp('/11000002000001号/',
@@ -47,11 +47,11 @@ class ExampleTest extends TestCase
         );
 
         $this->assertRegExp('/11000002000001号/',
-            $this->hclient->site()->service('https://www.baidu.com')->send()->getContent()
+            $this->hclient->site()->uri('https://www.baidu.com')->send()->getContent()
         );
 
         $this->assertRegExp('/11000002000001号/',
-            $this->hclient->site()->serviceResult('https://www.baidu.com')
+            $this->hclient->site()->uriResult('https://www.baidu.com')
         );
 
     }
