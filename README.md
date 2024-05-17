@@ -4,7 +4,6 @@
 - hehep-hclient 是一个PHP客户端工具组件
 
 ## 安装
-- 直接下载:
 - **gitee下载**:
 ```
 git clone git@gitee.com:chinahehex/hehep-hclient.git
@@ -222,7 +221,7 @@ use hclient\Client;
 $hclient = new Client();
 // $request_data json 编码后传输
 $request_data = ['id'=>1];
-$response = $hclient->post('http://www.baidu.com',[$request_data])->setFormat('json')->send();
+$response = $hclient->post('http://www.baidu.com',$request_data)->setFormat('json')->send();
 
 // 对返回结果json 解码
 $data = $response->setFormat('json')->getData();
@@ -450,4 +449,6 @@ class StreamTransport extends Transport
 
 ## 任务列表
 - 增加协议mqtt
+- 增加异步
+- 增加连接池
 
