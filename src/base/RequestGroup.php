@@ -124,7 +124,7 @@ class RequestGroup
 
         $request = call_user_func_array([$this->client,$method],[$url,$data,$options]);
 
-        $this->addRequest($request,$index);
+        $this->addRequest($request);
 
         return $request;
     }

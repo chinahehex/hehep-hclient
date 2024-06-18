@@ -15,7 +15,7 @@ git clone git@github.com:chinahehex/hehep-hclient.git
 ```
 - 命令安装：
 ```
-composer require hehex/hehep-hclient
+composer require hehep/hclient
 ```
 
 ## 组件配置

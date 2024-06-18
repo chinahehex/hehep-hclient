@@ -8,50 +8,50 @@ class ExampleTest extends TestCase
     public function testCommon()
     {
         // get 请求
-        $this->assertRegExp('/11000002000001号/',
-            $this->hclient->get('https://www.baidu.com/')->send()->getContent()
+        $this->assertRegExp("/".static::$config['siteKeyword']."/",
+            $this->hclient->get(static::$config['siteUrl'])->send()->getContent()
         );
 
-        $this->assertRegExp('/11000002000001号/',
-            $this->hclient->getResult('https://www.baidu.com/')
+        $this->assertRegExp("/".static::$config['siteKeyword']."/",
+            $this->hclient->getResult(static::$config['siteUrl'])
         );
 
     }
 
     public function testSite()
     {
-        $this->hclient->addSite('baidu',['baseUrl'=>"https://www.baidu.com/", 'method'=>'GET']);
+        $this->hclient->addSite('baidu',['baseUrl'=>static::$config['siteUrl'], 'method'=>'GET']);
 
-        $this->assertRegExp('/11000002000001号/',
+        $this->assertRegExp("/".static::$config['siteKeyword']."/",
             $this->hclient->uri('baidu')->send()->getContent()
         );
 
-        $this->assertRegExp('/11000002000001号/',
+        $this->assertRegExp("/".static::$config['siteKeyword']."/",
             $this->hclient->uriResult('baidu','')
         );
 
-        $this->assertRegExp('/11000002000001号/',
+        $this->assertRegExp("/".static::$config['siteKeyword']."/",
             $this->hclient->site('baidu')->uri()->send()->getContent()
         );
 
-        $this->assertRegExp('/11000002000001号/',
+        $this->assertRegExp("/".static::$config['siteKeyword']."/",
             $this->hclient->site('baidu')->uriResult()
         );
 
-        $this->assertRegExp('/11000002000001号/',
-            $this->hclient->site()->get('https://www.baidu.com')->send()->getContent()
+        $this->assertRegExp("/".static::$config['siteKeyword']."/",
+            $this->hclient->site()->get(static::$config['siteUrl'])->send()->getContent()
         );
 
-        $this->assertRegExp('/11000002000001号/',
-            $this->hclient->site()->getResult('https://www.baidu.com')
+        $this->assertRegExp("/".static::$config['siteKeyword']."/",
+            $this->hclient->site()->getResult(static::$config['siteUrl'])
         );
 
-        $this->assertRegExp('/11000002000001号/',
-            $this->hclient->site()->uri('https://www.baidu.com')->send()->getContent()
+        $this->assertRegExp("/".static::$config['siteKeyword']."/",
+            $this->hclient->site()->uri(static::$config['siteUrl'])->send()->getContent()
         );
 
-        $this->assertRegExp('/11000002000001号/',
-            $this->hclient->site()->uriResult('https://www.baidu.com')
+        $this->assertRegExp("/".static::$config['siteKeyword']."/",
+            $this->hclient->site()->uriResult(static::$config['siteUrl'])
         );
 
     }
@@ -59,33 +59,33 @@ class ExampleTest extends TestCase
     public function testBatch()
     {
         $reqeusts = [
-            'reqeust1'=>$this->hclient->get('https://www.baidu.com/'),
-            'reqeust2'=>$this->hclient->get('https://news.baidu.com/'),
+            'reqeust1'=>$this->hclient->get(static::$config['siteUrl']),
+            'reqeust2'=>$this->hclient->get(static::$config['siteUrl']),
         ];
 
         $responses = $this->hclient->batchSend($reqeusts);
 
-        $this->assertRegExp('/11000002000001号/',
+        $this->assertRegExp("/".static::$config['siteKeyword']."/",
             $responses['reqeust1']->getContent()
         );
 
-        $this->assertRegExp('/百度新闻/',
+        $this->assertRegExp("/".static::$config['siteKeyword']."/",
             $responses['reqeust2']->getContent()
         );
 
 
         $reqeusts = [
-            $this->hclient->get('https://www.baidu.com/')->setIndex("reqeust1"),
-            $this->hclient->get('https://news.baidu.com/')->setIndex("reqeust2"),
+            $this->hclient->get(static::$config['siteUrl'])->setIndex("reqeust1"),
+            $this->hclient->get(static::$config['siteUrl'])->setIndex("reqeust2"),
         ];
 
         $responses = $this->hclient->batchSend($reqeusts);
 
-        $this->assertRegExp('/11000002000001号/',
+        $this->assertRegExp("/".static::$config['siteKeyword']."/",
             $responses['reqeust1']->getContent()
         );
 
-        $this->assertRegExp('/百度新闻/',
+        $this->assertRegExp("/".static::$config['siteKeyword']."/",
             $responses['reqeust2']->getContent()
         );
 
@@ -96,16 +96,16 @@ class ExampleTest extends TestCase
     public function testRequestGroup()
     {
         $requestGroup = $this->hclient->batch();
-        $requestGroup->get('https://www.baidu.com/')->setIndex("reqeust1");
-        $requestGroup->getResult('https://news.baidu.com/')->setIndex("reqeust2");
+        $requestGroup->get(static::$config['siteUrl'])->setIndex("reqeust1");
+        $requestGroup->getResult(static::$config['siteUrl'])->setIndex("reqeust2");
 
         $responses = $requestGroup->send();
 
-        $this->assertRegExp('/11000002000001号/',
+        $this->assertRegExp("/".static::$config['siteKeyword']."/",
             $responses['reqeust1']->getContent()
         );
 
-        $this->assertRegExp('/百度新闻/',
+        $this->assertRegExp("/".static::$config['siteKeyword']."/",
             $responses['reqeust2']
         );
     }
@@ -114,22 +114,22 @@ class ExampleTest extends TestCase
     {
         $this->hclient->setTransport('stream');
 
-        $this->assertRegExp('/11000002000001号/',
-            $this->hclient->get('https://www.baidu.com/')->send()->getContent()
+        $this->assertRegExp("/".static::$config['siteKeyword']."/",
+            $this->hclient->get(static::$config['siteUrl'])->send()->getContent()
         );
     }
 
     public function testRequestTransport()
     {
-        $this->assertRegExp('/11000002000001号/',
-            $this->hclient->get('https://www.baidu.com/')->setTransport('stream')->send()->getContent()
+        $this->assertRegExp("/".static::$config['siteKeyword']."/",
+            $this->hclient->get(static::$config['siteUrl'])->setTransport('stream')->send()->getContent()
         );
     }
 
     public function testSetHeaders()
     {
-        $this->assertRegExp('/11000002000001号/',
-            $this->hclient->get('https://www.baidu.com/')->addHeaders([
+        $this->assertRegExp("/".static::$config['siteKeyword']."/",
+            $this->hclient->get(static::$config['siteUrl'])->addHeaders([
                 'c'=>1,
                 'n'=>time(),
             ])->send()->getContent()
@@ -138,14 +138,14 @@ class ExampleTest extends TestCase
 
     public function testSetCookie()
     {
-        $this->assertRegExp('/11000002000001号/',
-            $this->hclient->get('https://www.baidu.com/')->setCookie("ok","value",60 * 30)->send()->getContent()
+        $this->assertRegExp("/".static::$config['siteKeyword']."/",
+            $this->hclient->get(static::$config['siteUrl'])->setCookie("ok","value",60 * 30)->send()->getContent()
         );
     }
 
     public function testError()
     {
-        $response = $this->hclient->get('https://www.baidu.com/olklllll')->send();
+        $response = $this->hclient->get(static::$config['siteUrl'] . '/olklllll')->send();
         $this->assertTrue($response->hasError());
         $this->assertEquals($response->getStatusCode(),'404');
         $this->assertTrue($response->hasNetworkError());
